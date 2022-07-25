@@ -63,9 +63,19 @@ public class LinkedListDeque<T> {
         }
     }
 
+    // removes the first item in the list
     // No looping or recursion
     public T removeFirst(){
-        return null;
+        Node removedItem = this.sentinel.next;
+        if(removedItem == null){
+            return null;
+        }
+
+        this.sentinel.next = this.sentinel.next.next;
+        this.sentinel.next.prev = this.sentinel;
+        size--;
+
+        return (T) removedItem;
     }
 
     // No looping or recursion
