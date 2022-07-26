@@ -58,8 +58,6 @@ public class LinkedListDequeTest {
     /* Tests removing from an empty deque */
     public void removeEmptyTest() {
 
-        System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-        /*
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
         lld1.addFirst(3);
 
@@ -74,7 +72,6 @@ public class LinkedListDequeTest {
         errorMsg += "  actual size() returned 0\n";
 
         assertEquals(errorMsg, 0, size);
-        */
     }
 
     @Test

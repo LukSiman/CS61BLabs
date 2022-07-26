@@ -67,7 +67,7 @@ public class LinkedListDeque<T> {
     // No looping or recursion
     public T removeFirst(){
         Node removedItem = this.sentinel.next;
-        if(removedItem == null){
+        if(removedItem.item == null){
             return null;
         }
 
@@ -78,9 +78,19 @@ public class LinkedListDeque<T> {
         return (T) removedItem;
     }
 
+    // removes the last item in the list
     // No looping or recursion
     public T removeLast(){
-        return null;
+        Node removedItem = this.sentinel.prev;
+        if(removedItem.item == null){
+            return null;
+        }
+
+        this.sentinel.prev = this.sentinel.prev.prev;
+        this.sentinel.prev.next = this.sentinel;
+        size--;
+
+        return (T) removedItem;
     }
 
     // Use iteration
