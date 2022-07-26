@@ -3,6 +3,7 @@ package deque;
 public class ArrayListDeque<T> {
     private T[] items;
     private int size;
+    private int maxSize;
     private int nextFirst;
     private int nextLast;
     private static int INITIAL_SIZE = 8;
@@ -16,15 +17,18 @@ public class ArrayListDeque<T> {
 
     // Constant time
     // add item to the front of the list
-    public void addFirst(T item){
+    public void addFirst(T item) {
         resizeCheck();
 
-        this.items[nextFirst] = item;
-        if(this.nextFirst == 0){
-            this.nextFirst = INITIAL_SIZE - 1;
+        this.items[this.nextFirst] = item;
+
+        // checks if nextFirst is below zero and loops around if true
+        if (this.nextFirst == 0) {
+            this.nextFirst = this.items.length - 1;
         } else {
             this.nextFirst--;
         }
+
         this.size++;
     }
 
@@ -33,19 +37,37 @@ public class ArrayListDeque<T> {
     public void addLast(T item) {
         resizeCheck();
 
-        this.items[this.size] = item;
+        this.items[this.nextLast] = item;
+
+        // checks if nextLast is bigger than size and loops around
+        if (this.nextLast == this.items.length - 1) {
+            this.nextLast = 0;
+        } else {
+            this.nextLast++;
+        }
+
         this.size++;
     }
 
-    private void resizeCheck(){
+    // Checks if the given index is null
+    private boolean nullCheck(int index) {
+        if (this.items[index] == null) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // checks if array list needs resizing
+    private void resizeCheck() {
         if (this.size == this.items.length) {
             resize(this.size * 2);
         }
     }
 
     // Return boolean whether list is empty
-    public boolean isEmpty(){
-        if(this.size == 0){
+    public boolean isEmpty() {
+        if (this.size == 0) {
             return true;
         }
         return false;
@@ -53,17 +75,17 @@ public class ArrayListDeque<T> {
 
     // Constant time
     // return size of the list
-    public int size(){
+    public int size() {
         return this.size;
     }
 
     //Prints the list from first to last item
-    public void printDeque(){
-      }
+    public void printDeque() {
+    }
 
     // removes the first item in the list and returns it
     // No looping or recursion
-    public T removeFirst(){
+    public T removeFirst() {
 
 
         return null;
