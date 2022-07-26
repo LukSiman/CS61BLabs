@@ -37,12 +37,12 @@ public class LinkedListDeque<T> {
         Node lastItem = new Node(item, this.sentinel.prev, this.sentinel);
         this.sentinel.prev.next = lastItem;
         this.sentinel.prev = lastItem;
-        size++;
+        this.size++;
     }
 
     // Return boolean whether list is empty
     public boolean isEmpty(){
-        if(size == 0){
+        if(this.size == 0){
             return true;
         }
         return false;
@@ -51,7 +51,7 @@ public class LinkedListDeque<T> {
     // Constant time
     // return size of the list
     public int size(){
-        return size;
+        return this.size;
     }
 
     //Prints the list from first to last item
@@ -63,7 +63,7 @@ public class LinkedListDeque<T> {
         }
     }
 
-    // removes the first item in the list
+    // removes the first item in the list and returns it
     // No looping or recursion
     public T removeFirst(){
         T removedItem = this.sentinel.next.item;
@@ -73,12 +73,12 @@ public class LinkedListDeque<T> {
 
         this.sentinel.next = this.sentinel.next.next;
         this.sentinel.next.prev = this.sentinel;
-        size--;
+        this.size--;
 
         return removedItem;
     }
 
-    // removes the last item in the list
+    // removes the last item in the list and returns it
     // No looping or recursion
     public T removeLast(){
         T removedItem = this.sentinel.prev.item;
@@ -88,7 +88,7 @@ public class LinkedListDeque<T> {
 
         this.sentinel.prev = this.sentinel.prev.prev;
         this.sentinel.prev.next = this.sentinel;
-        size--;
+        this.size--;
 
         return removedItem;
     }

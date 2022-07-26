@@ -166,6 +166,10 @@ public class LinkedListDequeTest {
                 assertTrue(L.get(5) == B.get(5));
                 assertTrue(L.get(900) == B.get(900));
 
+                int size = L.size();
+                int sizeB = B.size();
+                assertTrue(size == sizeB);
+
             } else if(operationNumber == 3){
                 // removeLast
                 if(L.size() > 0){
