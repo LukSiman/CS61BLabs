@@ -25,8 +25,8 @@ public class ArrayListDequeTest {
         lld1.addLast("back");
         assertEquals(3, lld1.size());
 
-//        System.out.println("Printing out deque: ");
-//        lld1.printDeque();
+        System.out.println("Printing out deque (FLL): ");
+        lld1.printDeque();
     }
 
     @Test
@@ -41,13 +41,13 @@ public class ArrayListDequeTest {
         assertEquals(1, lld1.size());
         assertFalse("lld1 should now contain 1 item", lld1.isEmpty());
 
-        lld1.addFirst("middle");
+        lld1.addFirst("back");
         assertEquals(2, lld1.size());
 
-        lld1.addFirst("back");
+        lld1.addFirst("middle");
         assertEquals(3, lld1.size());
 
-//        System.out.println("Printing out deque: ");
-//        lld1.printDeque();
+        System.out.println("Printing out deque (FFF): ");
+        lld1.printDeque();
     }
 }
