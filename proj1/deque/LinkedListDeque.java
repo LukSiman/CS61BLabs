@@ -66,8 +66,8 @@ public class LinkedListDeque<T> {
     // removes the first item in the list
     // No looping or recursion
     public T removeFirst(){
-        Node removedItem = this.sentinel.next;
-        if(removedItem.item == null){
+        T removedItem = this.sentinel.next.item;
+        if(removedItem == null){
             return null;
         }
 
@@ -75,14 +75,14 @@ public class LinkedListDeque<T> {
         this.sentinel.next.prev = this.sentinel;
         size--;
 
-        return (T) removedItem;
+        return removedItem;
     }
 
     // removes the last item in the list
     // No looping or recursion
     public T removeLast(){
-        Node removedItem = this.sentinel.prev;
-        if(removedItem.item == null){
+        T removedItem = this.sentinel.prev.item;
+        if(removedItem == null){
             return null;
         }
 
@@ -90,11 +90,29 @@ public class LinkedListDeque<T> {
         this.sentinel.prev.next = this.sentinel;
         size--;
 
-        return (T) removedItem;
+        return removedItem;
     }
 
+    // gets the item at the specified index
     // Use iteration
     public T get(int index){
+        // if index larger than the list return null
+        if(index > this.size - 1){
+            return null;
+        }
+
+        Node getNode = this.sentinel.next;
+        T getItem = getNode.item;
+
+        // loop through the list until the specified index
+        for(int i = 0; i <= index; i++){
+            if(i == index){
+                return getItem;
+            }
+            getNode = getNode.next;
+        }
+
+        // if not found return null
         return null;
     }
 
