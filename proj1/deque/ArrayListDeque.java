@@ -5,28 +5,42 @@ public class ArrayListDeque<T> {
     private int size;
     private int nextFirst;
     private int nextLast;
+    private static int INITIAL_SIZE = 8;
 
     public ArrayListDeque() {
-        this.items = (T[]) new Object[8];
+        this.items = (T[]) new Object[INITIAL_SIZE];
         this.size = 0;
         this.nextFirst = 0;
-        this.nextLast = 0;
+        this.nextLast = 1;
     }
 
-    // No looping or recursion, constant time
+    // Constant time
     // add item to the front of the list
     public void addFirst(T item){
+        resizeCheck();
 
+        this.items[nextFirst] = item;
+        if(this.nextFirst == 0){
+            this.nextFirst = INITIAL_SIZE - 1;
+        } else {
+            this.nextFirst--;
+        }
+        this.size++;
     }
 
-    // No looping or recursion, constant time
+    // Constant time
     // add item to the end of the list
     public void addLast(T item) {
+        resizeCheck();
+
+        this.items[this.size] = item;
+        this.size++;
+    }
+
+    private void resizeCheck(){
         if (this.size == this.items.length) {
             resize(this.size * 2);
         }
-        this.items[this.size] = item;
-        this.size++;
     }
 
     // Return boolean whether list is empty
