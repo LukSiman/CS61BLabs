@@ -1,5 +1,6 @@
 package deque;
 
+import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -78,7 +79,6 @@ public class LinkedListDequeTest {
     /* Check if you can create LinkedListDeques with different parameterized types*/
     public void multipleParamTest() {
 
-        /*
         LinkedListDeque<String>  lld1 = new LinkedListDeque<String>();
         LinkedListDeque<Double>  lld2 = new LinkedListDeque<Double>();
         LinkedListDeque<Boolean> lld3 = new LinkedListDeque<Boolean>();
@@ -90,31 +90,24 @@ public class LinkedListDequeTest {
         String s = lld1.removeFirst();
         double d = lld2.removeFirst();
         boolean b = lld3.removeFirst();
-        */
     }
 
     @Test
     /* check if null is return when removing from an empty LinkedListDeque. */
     public void emptyNullReturnTest() {
 
-        System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-        /*
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
 
         boolean passed1 = false;
         boolean passed2 = false;
         assertEquals("Should return null when removeFirst is called on an empty Deque,", null, lld1.removeFirst());
         assertEquals("Should return null when removeLast is called on an empty Deque,", null, lld1.removeLast());
-
-        */
     }
 
     @Test
     /* Add large number of elements to deque; check if order is correct. */
     public void bigLLDequeTest() {
 
-        System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-        /*
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
         for (int i = 0; i < 1000000; i++) {
             lld1.addLast(i);
@@ -127,7 +120,60 @@ public class LinkedListDequeTest {
         for (double i = 999999; i > 500000; i--) {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
+    }
 
-        */
+    @Test
+    public void testThreeAddThreeRemove() {
+        LinkedListDeque<Integer> noResize = new LinkedListDeque<>();
+        LinkedListDeque<Integer> buggyList = new LinkedListDeque<>();
+
+        noResize.addLast(4);
+        buggyList.addLast(4);
+        noResize.addLast(5);
+        buggyList.addLast(5);
+        noResize.addLast(6);
+        buggyList.addLast(6);
+
+        assertTrue(noResize.size() == buggyList.size());
+        assertTrue(noResize.removeLast() == buggyList.removeLast());
+        assertTrue(noResize.removeLast() == buggyList.removeLast());
+        assertTrue(noResize.removeLast() == buggyList.removeLast());
+    }
+
+    @Test
+    public void randomizedTest() {
+        LinkedListDeque<Integer> L = new LinkedListDeque<>();
+        LinkedListDeque<Integer> B = new LinkedListDeque<>();
+
+        int N = 5000;
+        for (int i = 0; i < N; i += 1) {
+            int operationNumber = StdRandom.uniform(0, 4);
+            if (operationNumber == 0) {
+                // addLast
+                int randVal = StdRandom.uniform(0, 100);
+                L.addLast(randVal);
+                B.addLast(randVal);
+            } else if (operationNumber == 1) {
+                // size
+                int size = L.size();
+                int sizeB = B.size();
+                assertTrue(size == sizeB);
+            } else if(operationNumber == 2){
+                // getLast
+                assertTrue(L.get(1) == B.get(1));
+                assertTrue(L.get(2) == B.get(2));
+                assertTrue(L.get(0) == B.get(0));
+                assertTrue(L.get(5) == B.get(5));
+                assertTrue(L.get(900) == B.get(900));
+
+            } else if(operationNumber == 3){
+                // removeLast
+                if(L.size() > 0){
+                    int removeVal = L.removeLast();
+                    int BremoveVal = B.removeLast();
+                    assertTrue(removeVal == BremoveVal);
+                }
+            }
+        }
     }
 }
