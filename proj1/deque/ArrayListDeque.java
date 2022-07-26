@@ -81,6 +81,11 @@ public class ArrayListDeque<T> {
 
     //Prints the list from first to last item
     public void printDeque() {
+        for(T item : this.items){
+            if(item != null){
+                System.out.println(item);
+            }
+        }
     }
 
     // removes the first item in the list and returns it
