@@ -268,13 +268,17 @@ public class ArrayDequeTest {
         array.addLast(4);
         array.addLast(5);
         array.addLast(6);
+        array.addFirst(36);
+        array.addFirst(22);
 
-        assertEquals((long) 4, (long)array.get(1));
-        assertEquals((long)(5), (long)array.get(2));
-        assertEquals((long)(6), (long)array.get(3));
-        assertNull(array.get(4));
+        assertEquals((long)22, (long)array.get(0));
+        assertEquals((long)36, (long)array.get(1));
+        assertEquals((long)4, (long)array.get(2));
+        assertEquals((long)(5), (long)array.get(3));
+        assertEquals((long)(6), (long)array.get(4));
+
+        assertNull(array.get(5));
         assertNull(array.get(35));
-        assertNull(array.get(0));
         assertNull(array.get(-5));
     }
 
