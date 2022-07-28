@@ -1,5 +1,6 @@
 package deque;
 
+import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -111,8 +112,6 @@ public class ArrayListDequeTest {
 
         ArrayListDeque<Integer> lld1 = new ArrayListDeque<Integer>();
 
-        boolean passed1 = false;
-        boolean passed2 = false;
         assertEquals("Should return null when removeFirst is called on an empty Deque,", null, lld1.removeFirst());
         assertEquals("Should return null when removeLast is called on an empty Deque,", null, lld1.removeLast());
     }
@@ -172,11 +171,56 @@ public class ArrayListDequeTest {
 
         assertEquals(16, lld1.size());
 
-        for(int i = 0; i < 8; i++){
+        for(int i = 0; i < 14; i++){
+            lld1.removeFirst();
+        }
+
+        assertEquals(2, lld1.size());
+
+        ArrayListDeque<Integer> lld2 = new ArrayListDeque<Integer>();
+
+        for(int i = 0; i < 16; i++){
+            lld2.addLast(i);
+        }
+
+        assertEquals(16, lld2.size());
+
+        for(int i = 0; i < 14; i++){
+            lld2.removeLast();
+        }
+
+        assertEquals(2, lld2.size());
+
+
+        // mix first with last
+        lld1 = new ArrayListDeque<Integer>();
+
+        for(int i = 0; i < 16; i++){
+            lld1.addFirst(i);
+        }
+
+        assertEquals(16, lld1.size());
+
+        for(int i = 0; i < 14; i++){
             lld1.removeLast();
         }
 
-        assertEquals(8, lld1.size());
+        assertEquals(2, lld1.size());
+
+        lld2 = new ArrayListDeque<Integer>();
+
+        for(int i = 0; i < 16; i++){
+            lld2.addLast(i);
+        }
+
+        assertEquals(16, lld2.size());
+
+        for(int i = 0; i < 14; i++){
+            lld2.removeFirst();
+        }
+
+        assertEquals(2, lld2.size());
+
     }
 
     @Test
@@ -194,6 +238,65 @@ public class ArrayListDequeTest {
 
         for (double i = 999999; i > 500000; i--) {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
+        }
+    }
+
+    @Test
+    public void testThreeAddThreeRemove() {
+        ArrayListDeque<Integer> noResize = new ArrayListDeque<>();
+        ArrayListDeque<Integer> buggyList = new ArrayListDeque<>();
+
+        noResize.addLast(4);
+        buggyList.addLast(4);
+        noResize.addLast(5);
+        buggyList.addLast(5);
+        noResize.addLast(6);
+        buggyList.addLast(6);
+
+        assertTrue(noResize.size() == buggyList.size());
+        assertTrue(noResize.removeLast() == buggyList.removeLast());
+        assertTrue(noResize.removeLast() == buggyList.removeLast());
+        assertTrue(noResize.removeLast() == buggyList.removeLast());
+    }
+
+    @Test
+    public void randomizedTest() {
+        ArrayListDeque<Integer> L = new ArrayListDeque<>();
+        ArrayListDeque<Integer> B = new ArrayListDeque<>();
+
+        int N = 5000;
+        for (int i = 0; i < N; i += 1) {
+            int operationNumber = StdRandom.uniform(0, 4);
+            if (operationNumber == 0) {
+                // addLast
+                int randVal = StdRandom.uniform(0, 100);
+                L.addLast(randVal);
+                B.addLast(randVal);
+            } else if (operationNumber == 1) {
+                // size
+                int size = L.size();
+                int sizeB = B.size();
+                assertTrue(size == sizeB);
+            } else if(operationNumber == 2){
+                // getLast
+                assertTrue(L.get(1) == B.get(1));
+                assertTrue(L.get(2) == B.get(2));
+                assertTrue(L.get(0) == B.get(0));
+                assertTrue(L.get(5) == B.get(5));
+                assertTrue(L.get(900) == B.get(900));
+
+                int size = L.size();
+                int sizeB = B.size();
+                assertTrue(size == sizeB);
+
+            } else if(operationNumber == 3){
+                // removeLast
+                if(L.size() > 0){
+                    int removeVal = L.removeLast();
+                    int BremoveVal = B.removeLast();
+                    assertTrue(removeVal == BremoveVal);
+                }
+            }
         }
     }
 }
