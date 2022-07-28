@@ -152,11 +152,16 @@ public class ArrayDeque<T> {
 
     // gets the item at the specified index
     public T get(int index) {
-        if(index >= this.items.length || index < 0){
+        if(index >= this.size || index < 0){
             return null;
         }
 
-        return this.items[index];
+        int getIndex = getFirstIndex() + index;
+        if(getIndex >= this.items.length){
+            getIndex = getIndex - this.items.length;
+        }
+
+        return this.items[getIndex];
     }
 
     // resizes the array
