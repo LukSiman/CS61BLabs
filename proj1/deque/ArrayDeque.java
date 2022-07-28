@@ -152,7 +152,7 @@ public class ArrayDeque<T> {
 
     // gets the item at the specified index
     public T get(int index) {
-        if(index > this.size){
+        if(index >= this.items.length || index < 0){
             return null;
         }
 
