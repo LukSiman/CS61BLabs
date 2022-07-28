@@ -3,6 +3,8 @@ package deque;
 import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
@@ -260,11 +262,24 @@ public class ArrayDequeTest {
     }
 
     @Test
+    public void testGet() {
+        ArrayDeque<Integer> array = new ArrayDeque<>();
+
+        array.addLast(4);
+        array.addLast(5);
+        array.addLast(6);
+
+        assertEquals((long) 4, (long)array.get(1));
+        assertEquals((long)(5), (long)array.get(2));
+        assertEquals((long)(6), (long)array.get(3));
+    }
+
+    @Test
     public void randomizedTest() {
         ArrayDeque<Integer> L = new ArrayDeque<>();
         ArrayDeque<Integer> B = new ArrayDeque<>();
 
-        int N = 5000;
+        int N = 10000;
         for (int i = 0; i < N; i += 1) {
             int operationNumber = StdRandom.uniform(0, 4);
             if (operationNumber == 0) {
