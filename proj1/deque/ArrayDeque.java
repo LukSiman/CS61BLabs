@@ -1,6 +1,6 @@
 package deque;
 
-public class ArrayListDeque<T> {
+public class ArrayDeque<T> {
     private T[] items;
     private int size;
     private int maxSize;
@@ -8,7 +8,7 @@ public class ArrayListDeque<T> {
     private int nextLast;
     private static int INITIAL_SIZE = 8;
 
-    public ArrayListDeque() {
+    public ArrayDeque() {
         this.items = (T[]) new Object[INITIAL_SIZE];
         this.size = 0;
         this.nextFirst = 0;

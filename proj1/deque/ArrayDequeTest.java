@@ -6,11 +6,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
-public class ArrayListDequeTest {
+public class ArrayDequeTest {
 
     @Test
     public void addIsEmptySizeTest() {
-        ArrayListDeque<String> lld1 = new ArrayListDeque<String>();
+        ArrayDeque<String> lld1 = new ArrayDeque<String>();
 
         assertTrue("A newly initialized LLDeque should be empty", lld1.isEmpty());
         lld1.addFirst("front");
@@ -32,7 +32,7 @@ public class ArrayListDequeTest {
 
     @Test
     public void addFirstOnly() {
-        ArrayListDeque<String> lld1 = new ArrayListDeque<>();
+        ArrayDeque<String> lld1 = new ArrayDeque<>();
 
         assertTrue("A newly initialized LLDeque should be empty", lld1.isEmpty());
         lld1.addFirst("front");
@@ -56,7 +56,7 @@ public class ArrayListDequeTest {
     /** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
     public void addRemoveTest() {
 
-        ArrayListDeque<Integer> lld1 = new ArrayListDeque<Integer>();
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
         // should be empty
         assertTrue("lld1 should be empty upon initialization", lld1.isEmpty());
 
@@ -73,7 +73,7 @@ public class ArrayListDequeTest {
     /* Tests removing from an empty deque */
     public void removeEmptyTest() {
 
-        ArrayListDeque<Integer> lld1 = new ArrayListDeque<>();
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
         lld1.addFirst(3);
 
         lld1.removeLast();
@@ -93,9 +93,9 @@ public class ArrayListDequeTest {
     /* Check if you can create LinkedListDeques with different parameterized types*/
     public void multipleParamTest() {
 
-        ArrayListDeque<String>  lld1 = new ArrayListDeque<String>();
-        ArrayListDeque<Double>  lld2 = new ArrayListDeque<Double>();
-        ArrayListDeque<Boolean> lld3 = new ArrayListDeque<Boolean>();
+        ArrayDeque<String> lld1 = new ArrayDeque<String>();
+        ArrayDeque<Double> lld2 = new ArrayDeque<Double>();
+        ArrayDeque<Boolean> lld3 = new ArrayDeque<Boolean>();
 
         lld1.addFirst("string");
         lld2.addFirst(3.14159);
@@ -110,7 +110,7 @@ public class ArrayListDequeTest {
     /* check if null is return when removing from an empty LinkedListDeque. */
     public void emptyNullReturnTest() {
 
-        ArrayListDeque<Integer> lld1 = new ArrayListDeque<Integer>();
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
 
         assertEquals("Should return null when removeFirst is called on an empty Deque,", null, lld1.removeFirst());
         assertEquals("Should return null when removeLast is called on an empty Deque,", null, lld1.removeLast());
@@ -120,7 +120,7 @@ public class ArrayListDequeTest {
     /* check if resizing works */
     public void resizeTestFirsts() {
 
-        ArrayListDeque<Integer> lld1 = new ArrayListDeque<Integer>();
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
 
        for(int i = 0; i < 14; i++){
            lld1.addFirst(i);
@@ -133,7 +133,7 @@ public class ArrayListDequeTest {
     /* check if resizing works */
     public void resizeTestLasts() {
 
-        ArrayListDeque<Integer> lld1 = new ArrayListDeque<Integer>();
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
 
         for(int i = 0; i < 30; i++){
             lld1.addLast(i);
@@ -146,7 +146,7 @@ public class ArrayListDequeTest {
     /* check if resizing works */
     public void resizeTestFirstsLasts() {
 
-        ArrayListDeque<Integer> lld1 = new ArrayListDeque<Integer>();
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
 
         for(int i = 0; i < 15; i++){
             lld1.addFirst(i);
@@ -163,7 +163,7 @@ public class ArrayListDequeTest {
     /* check if resizing works */
     public void resizeTestAddAndRemove() {
 
-        ArrayListDeque<Integer> lld1 = new ArrayListDeque<Integer>();
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
 
         for(int i = 0; i < 16; i++){
             lld1.addFirst(i);
@@ -177,7 +177,7 @@ public class ArrayListDequeTest {
 
         assertEquals(2, lld1.size());
 
-        ArrayListDeque<Integer> lld2 = new ArrayListDeque<Integer>();
+        ArrayDeque<Integer> lld2 = new ArrayDeque<Integer>();
 
         for(int i = 0; i < 16; i++){
             lld2.addLast(i);
@@ -193,7 +193,7 @@ public class ArrayListDequeTest {
 
 
         // mix first with last
-        lld1 = new ArrayListDeque<Integer>();
+        lld1 = new ArrayDeque<Integer>();
 
         for(int i = 0; i < 16; i++){
             lld1.addFirst(i);
@@ -207,7 +207,7 @@ public class ArrayListDequeTest {
 
         assertEquals(2, lld1.size());
 
-        lld2 = new ArrayListDeque<Integer>();
+        lld2 = new ArrayDeque<Integer>();
 
         for(int i = 0; i < 16; i++){
             lld2.addLast(i);
@@ -227,7 +227,7 @@ public class ArrayListDequeTest {
     /* Add large number of elements to deque; check if order is correct. */
     public void bigLLDequeTest() {
 
-        ArrayListDeque<Integer> lld1 = new ArrayListDeque<Integer>();
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
         for (int i = 0; i < 1000000; i++) {
             lld1.addLast(i);
         }
@@ -243,8 +243,8 @@ public class ArrayListDequeTest {
 
     @Test
     public void testThreeAddThreeRemove() {
-        ArrayListDeque<Integer> noResize = new ArrayListDeque<>();
-        ArrayListDeque<Integer> buggyList = new ArrayListDeque<>();
+        ArrayDeque<Integer> noResize = new ArrayDeque<>();
+        ArrayDeque<Integer> buggyList = new ArrayDeque<>();
 
         noResize.addLast(4);
         buggyList.addLast(4);
@@ -261,8 +261,8 @@ public class ArrayListDequeTest {
 
     @Test
     public void randomizedTest() {
-        ArrayListDeque<Integer> L = new ArrayListDeque<>();
-        ArrayListDeque<Integer> B = new ArrayListDeque<>();
+        ArrayDeque<Integer> L = new ArrayDeque<>();
+        ArrayDeque<Integer> B = new ArrayDeque<>();
 
         int N = 5000;
         for (int i = 0; i < N; i += 1) {
