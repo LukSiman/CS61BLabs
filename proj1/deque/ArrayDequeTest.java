@@ -272,6 +272,10 @@ public class ArrayDequeTest {
         assertEquals((long) 4, (long)array.get(1));
         assertEquals((long)(5), (long)array.get(2));
         assertEquals((long)(6), (long)array.get(3));
+        assertNull(array.get(4));
+        assertNull(array.get(35));
+        assertNull(array.get(0));
+        assertNull(array.get(-5));
     }
 
     @Test
