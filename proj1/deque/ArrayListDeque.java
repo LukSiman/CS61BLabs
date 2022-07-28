@@ -81,34 +81,72 @@ public class ArrayListDeque<T> {
 
     //Prints the list from first to last item
     public void printDeque() {
-        for(T item : this.items){
-            if(item != null){
+        for (T item : this.items) {
+            if (item != null) {
                 System.out.println(item);
             }
         }
     }
 
     // removes the first item in the list and returns it
-    // No looping or recursion
     public T removeFirst() {
+        if ((this.size < this.items.length / 4) && (this.size > 4)) {
+            resize(this.size);
+        }
 
+        int firstIndex = getFirstIndex();
 
-        return null;
+        T removedItem = this.items[firstIndex];
+
+        if (removedItem == null) {
+            return null;
+        }
+
+        this.items[firstIndex] = null;
+        this.size--;
+
+        return removedItem;
     }
 
     // removes the last item in the list and returns it
-    // No looping or recursion
     public T removeLast() {
         if ((this.size < this.items.length / 4) && (this.size > 4)) {
             resize(this.size);
         }
 
-        T x = get(2); // wrong
-        this.items[this.size - 1] = null;
-        this.size = this.size - 1;
-        return x;
+        int lastIndex = getLastIndex();
+
+        T removedItem = this.items[lastIndex];
+
+        if (removedItem == null) {
+            return null;
+        }
+
+        this.items[lastIndex] = null;
+        this.size--;
+
+        return removedItem;
     }
 
+    private int getFirstIndex(){
+        int firstIndex = this.nextFirst;
+        if (firstIndex + 1 == this.items.length) {
+            firstIndex = 0;
+        } else {
+            firstIndex++;
+        }
+        return firstIndex;
+    }
+
+    private int getLastIndex(){
+        int lastIndex = this.nextLast;
+        if (lastIndex == 0) {
+            lastIndex = this.items.length - 1;
+        } else {
+            lastIndex--;
+        }
+        return lastIndex;
+    }
 
     // gets the item at the specified index
     public T get(int i) {
@@ -118,9 +156,19 @@ public class ArrayListDeque<T> {
     // resizes the array
     private void resize(int capacity) {
         T[] arrayToResize = (T[]) new Object[capacity];
-        for (int i = 0; i < size; i++) {
-            arrayToResize[i] = this.items[i];
+        for (int i = getFirstIndex(), j = 0; j < this.size; j++) {
+            arrayToResize[j] = this.items[i];
+
+            if (i == this.size - 1) {
+                i = 0;
+            } else {
+                i++;
+            }
         }
+
         this.items = arrayToResize;
+
+        this.nextFirst = this.items.length - 1;
+        this.nextLast = this.size - 1;
     }
 }
