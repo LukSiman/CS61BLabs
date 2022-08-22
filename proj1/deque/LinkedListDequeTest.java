@@ -2,6 +2,9 @@ package deque;
 
 import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
+
+import java.util.Optional;
+
 import static org.junit.Assert.*;
 
 
@@ -135,6 +138,23 @@ public class LinkedListDequeTest {
         assertTrue(noResize.removeLast() == buggyList.removeLast());
         assertTrue(noResize.removeLast() == buggyList.removeLast());
         assertTrue(noResize.removeLast() == buggyList.removeLast());
+    }
+
+    @Test
+    public void testGetRecursive() {
+        LinkedListDeque<Integer> noResize = new LinkedListDeque<>();
+        LinkedListDeque<Integer> buggyList = new LinkedListDeque<>();
+
+        noResize.addLast(4);
+        buggyList.addLast(4);
+        noResize.addLast(5);
+        buggyList.addLast(5);
+        noResize.addLast(6);
+        buggyList.addLast(6);
+
+        assertTrue((noResize.getRecursive(2) == 6));
+        assertTrue((noResize.getRecursive(1) == 5));
+        assertTrue((noResize.getRecursive(0) == 4));
     }
 
     @Test
