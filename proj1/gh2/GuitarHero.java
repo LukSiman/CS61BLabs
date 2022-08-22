@@ -9,9 +9,13 @@ public class GuitarHero {
         String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 
         GuitarString[] strings = new GuitarString[keyboard.length()];
+/*        Harp[] strings = new Harp[keyboard.length()];
+        Drums[] strings = new Drums[keyboard.length()];*/
         for (int i = 0; i < strings.length; i++) {
             double frequency = 440.0 * Math.pow(2, (i - 24) / 12);
             strings[i] = new GuitarString(frequency);
+/*            strings[i] = new Harp(frequency);
+            strings[i] = new Drums(frequency);*/
         }
 
         while (true) {
