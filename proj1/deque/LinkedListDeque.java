@@ -1,6 +1,6 @@
 package deque;
 
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T>{
     private class Node{
         public T item;
         public Node prev;
@@ -41,12 +41,12 @@ public class LinkedListDeque<T> {
     }
 
     // Return boolean whether list is empty
-    public boolean isEmpty(){
-        if(this.size == 0){
-            return true;
-        }
-        return false;
-    }
+//    public boolean isEmpty(){
+//        if(this.size == 0){
+//            return true;
+//        }
+//        return false;
+//    }
 
     // Constant time
     // return size of the list

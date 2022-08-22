@@ -1,6 +1,6 @@
 package deque;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T>{
     private T[] items;
     private int size;
     private int maxSize;
@@ -66,12 +66,12 @@ public class ArrayDeque<T> {
     }
 
     // Return boolean whether list is empty
-    public boolean isEmpty() {
-        if (this.size == 0) {
-            return true;
-        }
-        return false;
-    }
+//    public boolean isEmpty() {
+//        if (this.size == 0) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     // Constant time
     // return size of the list
@@ -81,11 +81,24 @@ public class ArrayDeque<T> {
 
     //Prints the list from first to last item
     public void printDeque() {
-        for (T item : this.items) {
-            if (item != null) {
-                System.out.println(item);
+        int i = getFirstIndex();
+        while(i != getLastIndex() + 1) {
+            if (items[i] != null) {
+                System.out.print(items[i] + " ");
+            }
+
+            if (i + 1 == items.length) {
+                i = 0;
+            } else {
+                i++;
             }
         }
+
+//        for (T item : this.items) {
+//            if (item != null) {
+//                System.out.print(item + " ");
+//            }
+//        }
     }
 
     // removes the first item in the list and returns it
@@ -130,7 +143,7 @@ public class ArrayDeque<T> {
         return removedItem;
     }
 
-    private int getFirstIndex(){
+    private int getFirstIndex() {
         int firstIndex = this.nextFirst;
         if (firstIndex + 1 == this.items.length) {
             firstIndex = 0;
@@ -140,7 +153,7 @@ public class ArrayDeque<T> {
         return firstIndex;
     }
 
-    private int getLastIndex(){
+    private int getLastIndex() {
         int lastIndex = this.nextLast;
         if (lastIndex == 0) {
             lastIndex = this.items.length - 1;
@@ -152,12 +165,12 @@ public class ArrayDeque<T> {
 
     // gets the item at the specified index
     public T get(int index) {
-        if(index >= this.size || index < 0){
+        if (index >= this.size || index < 0) {
             return null;
         }
 
         int getIndex = getFirstIndex() + index;
-        if(getIndex >= this.items.length){
+        if (getIndex >= this.items.length) {
             getIndex = getIndex - this.items.length;
         }
 
