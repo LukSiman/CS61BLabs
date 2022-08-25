@@ -135,10 +135,62 @@ public class LinkedListDeque<T> implements Deque<T>{
     }
 
     public Iterator<T> iterator(){
-
+        return new LinkedListDequeIterator();
     }
 
-    public boolean equals(Object o){
+    private class LinkedListDequeIterator implements Iterator<T>{
+        private int position;
 
+        public LinkedListDequeIterator(){
+            position = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return position < size;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = get(position);
+            position++;
+            return returnItem;
+        }
+    }
+
+    @Override
+    public boolean equals(Object other){
+        if (this == other) {
+            return true;
+        }
+        if (other == null) {
+            return false;
+        }
+
+        if(!(other instanceof Deque<?>)){
+            return false;
+        }
+
+        LinkedListDeque<T> o = (LinkedListDeque<T>) other;
+        if (o.size() != this.size()) {
+            return false;
+        }
+
+        Iterator<T> seer = this.iterator();
+        while (seer.hasNext()) {
+            if (!o.contains(seer.next())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean contains(T x) {
+        for (int i = 0; i < size; i += 1) {
+            if (this.get(i).equals(x)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
