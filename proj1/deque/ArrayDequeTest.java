@@ -322,4 +322,21 @@ public class ArrayDequeTest {
             }
         }
     }
+
+    @Test
+    public void testEquality(){
+        ArrayDeque<Integer> dequeA = new ArrayDeque<>();
+        assertEquals(dequeA,dequeA);
+
+        ArrayDeque<Integer> dequeB = new ArrayDeque<>();
+        assertEquals(dequeA,dequeB);
+
+        dequeA.addLast(5);
+        dequeA.addFirst(99);
+
+        dequeB.addLast(5);
+        dequeB.addFirst(99);
+
+        assertEquals(dequeA,dequeB);
+    }
 }

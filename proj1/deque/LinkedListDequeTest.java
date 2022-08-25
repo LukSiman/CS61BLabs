@@ -197,4 +197,21 @@ public class LinkedListDequeTest {
             }
         }
     }
+
+    @Test
+    public void testEquality(){
+        LinkedListDeque<Integer> dequeA = new LinkedListDeque<>();
+        assertEquals(dequeA,dequeA);
+
+        LinkedListDeque<Integer> dequeB = new LinkedListDeque<>();
+        assertEquals(dequeA,dequeB);
+
+        dequeA.addLast(5);
+        dequeA.addFirst(99);
+
+        dequeB.addLast(5);
+        dequeB.addFirst(99);
+
+        assertEquals(dequeA,dequeB);
+    }
 }
