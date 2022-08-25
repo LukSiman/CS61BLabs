@@ -1,9 +1,8 @@
 package deque;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private int size;
     private int maxSize;
@@ -85,7 +84,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     //Prints the list from first to last item
     public void printDeque() {
         int i = getFirstIndex();
-        while(i != getLastIndex() + 1) {
+        while (i != getLastIndex() + 1) {
             if (items[i] != null) {
                 System.out.print(items[i] + " ");
             }
@@ -200,14 +199,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         this.nextLast = this.size;
     }
 
-    public Iterator<T> iterator(){
+    public Iterator<T> iterator() {
         return new ArrayDequeIterator();
     }
 
-    private class ArrayDequeIterator implements Iterator<T>{
+    private class ArrayDequeIterator implements Iterator<T> {
         private int position;
 
-        public ArrayDequeIterator(){
+        public ArrayDequeIterator() {
             position = 0;
         }
 
@@ -225,7 +224,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     }
 
     @Override
-    public boolean equals(Object other){
+    public boolean equals(Object other) {
         if (this == other) {
             return true;
         }
@@ -233,28 +232,23 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
             return false;
         }
 
-        if(!(other instanceof Deque<?>)){
+        if (!(other instanceof Deque<?>)) {
             return false;
         }
 
-        ArrayDeque<T> o = (ArrayDeque<T>) other;
+        Deque<T> o = (ArrayDeque<T>) other;
         if (o.size() != this.size()) {
             return false;
         }
+
+        int i = 0;
         for (T item : this) {
-            if (!o.contains(item)) {
+            if (!item.equals(o.get(i))) {
                 return false;
             }
+            i++;
         }
-        return true;
-    }
 
-    private boolean contains(T x) {
-        for (int i = 0; i < size; i += 1) {
-            if (items[i].equals(x)) {
-                return true;
-            }
-        }
-        return false;
+        return true;
     }
 }

@@ -104,10 +104,10 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
 
         Node getNode = this.sentinel.next;
-        T getItem = getNode.item;
 
         // loop through the list until the specified index
-        for (int i = 0; i <= index; i++) {
+        for (int i = 0; i < size; i++) {
+            T getItem = getNode.item;
             if (i == index) {
                 return getItem;
             }
@@ -177,20 +177,14 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
 
         Iterator<T> seer = this.iterator();
+
+        int i = 0;
         while (seer.hasNext()) {
-            if (!o.contains(seer.next())) {
+            if (!seer.next().equals(o.get(i))) {
                 return false;
             }
+            i++;
         }
         return true;
-    }
-
-    private boolean contains(T x) {
-        for (int i = 0; i < size; i += 1) {
-            if (this.get(i).equals(x)) {
-                return true;
-            }
-        }
-        return false;
     }
 }

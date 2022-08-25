@@ -141,16 +141,25 @@ public class LinkedListDequeTest {
     }
 
     @Test
+    public void testGetIterative() {
+        LinkedListDeque<Integer> noResize = new LinkedListDeque<>();
+
+        noResize.addLast(4);;
+        noResize.addLast(5);
+        noResize.addLast(6);
+
+        assertTrue((noResize.get(2) == 6));
+        assertTrue((noResize.get(1) == 5));
+        assertTrue((noResize.get(0) == 4));
+    }
+
+    @Test
     public void testGetRecursive() {
         LinkedListDeque<Integer> noResize = new LinkedListDeque<>();
-        LinkedListDeque<Integer> buggyList = new LinkedListDeque<>();
 
         noResize.addLast(4);
-        buggyList.addLast(4);
         noResize.addLast(5);
-        buggyList.addLast(5);
         noResize.addLast(6);
-        buggyList.addLast(6);
 
         assertTrue((noResize.getRecursive(2) == 6));
         assertTrue((noResize.getRecursive(1) == 5));
