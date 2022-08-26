@@ -1,11 +1,11 @@
 package deque;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private int size;
-    private int maxSize;
     private int nextFirst;
     private int nextLast;
     private static int INITIAL_SIZE = 8;
@@ -39,6 +39,10 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     public void addLast(T item) {
         resizeCheck();
 
+//        if (this.nextLast == this.items.length - 1) {
+//            this.nextLast = 0;
+//        }
+
         this.items[this.nextLast] = item;
 
         // checks if nextLast is bigger than size and loops around
@@ -48,32 +52,12 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             this.nextLast++;
         }
 
+//        this.items[this.nextLast] = item;
+
+//        System.out.println("Last added: " + item);
+//        System.out.println(Arrays.toString(items));
         this.size++;
     }
-
-    // Checks if the given index is null
-    private boolean nullCheck(int index) {
-        if (this.items[index] == null) {
-            return true;
-        }
-
-        return false;
-    }
-
-    // checks if array list needs resizing
-    private void resizeCheck() {
-        if (this.size == this.items.length) {
-            resize(this.size * 2);
-        }
-    }
-
-    // Return boolean whether list is empty
-//    public boolean isEmpty() {
-//        if (this.size == 0) {
-//            return true;
-//        }
-//        return false;
-//    }
 
     // Constant time
     // return size of the list
@@ -95,18 +79,16 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
                 i++;
             }
         }
-
-//        for (T item : this.items) {
-//            if (item != null) {
-//                System.out.print(item + " ");
-//            }
-//        }
     }
 
     // removes the first item in the list and returns it
     public T removeFirst() {
         if ((this.size < this.items.length / 4) && this.items.length >= 16) {
-            resize(this.size);
+            if (size < 4) {
+                resize(4);
+            } else {
+                resize(this.size);
+            }
         }
 
         int firstIndex = getFirstIndex();
@@ -127,11 +109,17 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     // removes the last item in the list and returns it
     public T removeLast() {
         if ((this.size < this.items.length / 4) && this.items.length >= 16) {
-            resize(this.size);
+            if (size < 4) {
+                resize(4);
+            } else {
+                resize(this.size);
+            }
         }
 
         int lastIndex = getLastIndex();
 
+//        System.out.println("Real last index: " + lastIndex);
+//        System.out.println(Arrays.toString(items));
         T removedItem = this.items[lastIndex];
 
         if (removedItem == null) {
@@ -179,14 +167,23 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return this.items[getIndex];
     }
 
+    // checks if array list needs resizing
+    private void resizeCheck() {
+//        System.out.println("Size:" + this.size + " and length: " + items.length);
+        if (this.size == this.items.length) {
+            resize(this.size * 2);
+        }
+    }
+
     // resizes the array
     private void resize(int capacity) {
+//        System.out.println("Resizing to :" + capacity);
         T[] arrayToResize = (T[]) new Object[capacity];
         for (int i = getFirstIndex(), j = 0; j < this.size; j++) {
 
             arrayToResize[j] = this.items[i];
 
-            if (i == this.size - 1) {
+            if (i == items.length - 1) {
                 i = 0;
             } else {
                 i++;
@@ -197,6 +194,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
         this.nextFirst = this.items.length - 1;
         this.nextLast = this.size;
+//        System.out.println("NextFirst after resize: " + nextFirst);
+//        System.out.println("NextLast after resize: " + nextLast);
     }
 
     public Iterator<T> iterator() {
