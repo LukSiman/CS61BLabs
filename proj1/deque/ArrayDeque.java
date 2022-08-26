@@ -1,6 +1,5 @@
 package deque;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
@@ -39,7 +38,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     public void addLast(T item) {
         resizeCheck();
 
-        if(nextLast == items.length){
+        if
+        (nextLast == items.length){
             nextLast = 0;
         }
 
@@ -163,7 +163,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     // checks if array list needs resizing
     private void resizeCheck() {
-//        System.out.println("Size:" + this.size + " and length: " + items.length);
         if (this.size == this.items.length) {
             resize(this.size * 2);
         }
@@ -171,7 +170,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     // resizes the array
     private void resize(int capacity) {
-//        System.out.println("Resizing to :" + capacity);
         T[] arrayToResize = (T[]) new Object[capacity];
         for (int i = getFirstIndex(), j = 0; j < this.size; j++) {
 
