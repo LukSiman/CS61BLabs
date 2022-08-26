@@ -2,13 +2,13 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Deque<T> {
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private class Node {
-        public T item;
-        public Node prev;
-        public Node next;
+        private T item;
+        private Node prev;
+        private Node next;
 
-        public Node(T item, Node prev, Node next) {
+        Node(T item, Node prev, Node next) {
             this.item = item;
             this.prev = prev;
             this.next = next;
@@ -41,14 +41,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         this.sentinel.prev = lastItem;
         this.size++;
     }
-
-    // Return boolean whether list is empty
-//    public boolean isEmpty(){
-//        if(this.size == 0){
-//            return true;
-//        }
-//        return false;
-//    }
 
     // Constant time
     // return size of the list
@@ -141,7 +133,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     private class LinkedListDequeIterator implements Iterator<T> {
         private int position;
 
-        public LinkedListDequeIterator() {
+        LinkedListDequeIterator() {
             position = 0;
         }
 
@@ -171,16 +163,14 @@ public class LinkedListDeque<T> implements Deque<T> {
             return false;
         }
 
-        LinkedListDeque<T> o = (LinkedListDeque<T>) other;
+        Deque<T> o = (LinkedListDeque<T>) other;
         if (o.size() != this.size()) {
             return false;
         }
 
-        Iterator<T> seer = this.iterator();
-
         int i = 0;
-        while (seer.hasNext()) {
-            if (!seer.next().equals(o.get(i))) {
+        for (T item : this) {
+            if (!item.equals(o.get(i))) {
                 return false;
             }
             i++;

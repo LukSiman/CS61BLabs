@@ -6,7 +6,7 @@ import deque.Deque;
 
 //Note: This file will not compile until you complete the Deque implementations
 public class Harp {
-    /**
+    /*
      * Constants. Do not change. In case you're curious, the keyword final
      * means the values cannot be changed at runtime. We'll discuss this and
      * other topics in lecture on Friday.
@@ -37,7 +37,7 @@ public class Harp {
         for (int i = 0; i < buffer.size(); i++) {
             buffer.removeFirst();
             double r = Math.random() - 0.5;
-            r = Math.round(r*10000.0)/10000.000;
+            r = Math.round(r * 10000.0) / 10000.000;
             buffer.addLast(r);
         }
     }
@@ -48,12 +48,12 @@ public class Harp {
     public void tic() {
         int size = buffer.size();
 //        for (int i = 1; i < size - 1; i++) {
-            double first = buffer.removeFirst();
-            double second = buffer.removeFirst();
-            buffer.addFirst(second);
-            double newDouble = (first + second) / 2 * DECAY;
-            newDouble *= -1;
-            buffer.addLast(newDouble);
+        double first = buffer.removeFirst();
+        double second = buffer.removeFirst();
+        buffer.addFirst(second);
+        double newDouble = (first + second) / 2 * DECAY;
+        newDouble *= -1;
+        buffer.addLast(newDouble);
 //        }
     }
 

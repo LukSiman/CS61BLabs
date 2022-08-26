@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Comparator;
 
-public class MaxArrayDeque<T> extends ArrayDeque<T> implements Comparable<T> {
+public class MaxArrayDeque<T> extends ArrayDeque<T> {
     private Comparator<T> comparator;
 
     public MaxArrayDeque(Comparator<T> c) {
@@ -16,14 +16,16 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> implements Comparable<T> {
 
         int maxIndex = 0;
 
-        for(int i = 0; i < this.size(); i++){
-            int compareValue = comparator.compare((T)this.get(i), (T)this.get(maxIndex));
-            if(compareValue > 0){
+        for
+        (int i = 0; i < this.size(); i++)
+        {
+            int compareValue = comparator.compare(this.get(i), this.get(maxIndex));
+            if (compareValue > 0) {
                 maxIndex = i;
             }
         }
 
-        return (T) this.get(maxIndex);
+        return this.get(maxIndex);
     }
 
 
@@ -34,18 +36,13 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> implements Comparable<T> {
 
         int maxIndex = 0;
 
-        for(int i = 0; i < this.size(); i++){
-            int compareValue = c.compare((T)this.get(i), (T)this.get(maxIndex));
-            if(compareValue > 0){
+        for (int i = 0; i < this.size(); i++) {
+            int compareValue = c.compare(this.get(i), this.get(maxIndex));
+            if (compareValue > 0) {
                 maxIndex = i;
             }
         }
 
-        return (T) this.get(maxIndex);
-    }
-
-    @Override
-    public int compareTo(T anotherObject) {
-        return 0;
+        return this.get(maxIndex);
     }
 }

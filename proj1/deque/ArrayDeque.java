@@ -1,6 +1,5 @@
 package deque;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
@@ -8,7 +7,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int size;
     private int nextFirst;
     private int nextLast;
-    private static int INITIAL_SIZE = 8;
+    private static final int INITIAL_SIZE = 8;
 
     public ArrayDeque() {
         this.items = (T[]) new Object[INITIAL_SIZE];
@@ -39,10 +38,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     public void addLast(T item) {
         resizeCheck();
 
-//        if (this.nextLast == this.items.length - 1) {
-//            this.nextLast = 0;
-//        }
-
         this.items[this.nextLast] = item;
 
         // checks if nextLast is bigger than size and loops around
@@ -52,10 +47,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             this.nextLast++;
         }
 
-//        this.items[this.nextLast] = item;
-
-//        System.out.println("Last added: " + item);
-//        System.out.println(Arrays.toString(items));
         this.size++;
     }
 
@@ -118,8 +109,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
         int lastIndex = getLastIndex();
 
-//        System.out.println("Real last index: " + lastIndex);
-//        System.out.println(Arrays.toString(items));
         T removedItem = this.items[lastIndex];
 
         if (removedItem == null) {
@@ -194,8 +183,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
         this.nextFirst = this.items.length - 1;
         this.nextLast = this.size;
-//        System.out.println("NextFirst after resize: " + nextFirst);
-//        System.out.println("NextLast after resize: " + nextLast);
     }
 
     public Iterator<T> iterator() {
@@ -205,7 +192,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private class ArrayDequeIterator implements Iterator<T> {
         private int position;
 
-        public ArrayDequeIterator() {
+        ArrayDequeIterator() {
             position = 0;
         }
 
