@@ -1,5 +1,6 @@
 package deque;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
@@ -37,6 +38,10 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     // add item to the end of the list
     public void addLast(T item) {
         resizeCheck();
+
+        if(nextLast == items.length){
+            nextLast = 0;
+        }
 
         this.items[this.nextLast] = item;
 
@@ -222,7 +227,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return false;
         }
 
-        Deque<T> o = (ArrayDeque<T>) other;
+        Deque<T> o = (Deque<T>) other;
         if (o.size() != this.size()) {
             return false;
         }

@@ -1,9 +1,13 @@
 package deque;
 
+import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MaxArrayDequeTest {
@@ -17,7 +21,7 @@ public class MaxArrayDequeTest {
         max.addFirst(2);
         max.addFirst(3);
 
-        assertEquals(3, max.max());
+        assertEquals((Integer)3, max.max());
     }
 
     @Test
@@ -29,7 +33,7 @@ public class MaxArrayDequeTest {
         max.addFirst(2);
         max.addFirst(3);
 
-        assertEquals(1, max.max());
+        assertEquals((Integer)1, max.max());
     }
 
     @Test
@@ -49,7 +53,7 @@ public class MaxArrayDequeTest {
         max.addFirst(2);
         max.addFirst(3);
 
-        assertEquals(3, max.max());
+        assertEquals((Integer)3, max.max());
     }
 
     @Test
@@ -103,11 +107,52 @@ public class MaxArrayDequeTest {
         max.addLast(14);
         max.addLast(999);
 
-        assertEquals(999, max.max());
+        assertEquals((Integer)999, max.max());
 
         Comparator<Integer> low = new LowestValueComparison();
 
-        assertEquals(3, max.max(low));
+        assertEquals((Integer)3, max.max(low));
     }
 
+    @Test
+    public void randomizedTest() {
+        Comparator<Integer> low = new LowestValueComparison();
+        MaxArrayDeque<Integer> L = new MaxArrayDeque<>(low);
+
+        List<Integer> list = new ArrayList<>();
+        int N = 100000;
+        for (int i = 0; i < N; i += 1) {
+            int operationNumber = StdRandom.uniform(0, 5);
+            if (operationNumber == 0) {
+                // addLast
+                int randVal = StdRandom.uniform(0, 100);
+                list.add(randVal);
+                L.addLast(randVal);
+            } else if (operationNumber == 1) {
+                // addFirst
+                int randVal = StdRandom.uniform(0, 100);
+                list.add(0, randVal);
+                L.addFirst(randVal);
+            } else if (operationNumber == 2) {
+                // getLast
+                int size = L.size();
+
+            } else if (operationNumber == 3) {
+                // removeLast
+                if (L.size() > 0) {
+                    int lastList = list.remove(list.size() - 1);
+                    int removeVal = L.removeLast();
+                    assertEquals(lastList, removeVal);
+                }
+            } else if (operationNumber == 4) {
+                // removeFirst
+                if (L.size() > 0) {
+                    ArrayDeque<Integer> test = L;
+                    int firstList = list.remove(0);
+                    int removeVal = L.removeFirst();
+                    assertEquals(firstList, removeVal);
+                }
+            }
+        }
+    }
 }

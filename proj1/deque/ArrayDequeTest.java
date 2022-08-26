@@ -306,7 +306,7 @@ public class ArrayDequeTest {
         ArrayDeque<Integer> L = new ArrayDeque<>();
 
         List<Integer> list = new ArrayList<>();
-        int N = 20000;
+        int N = 100000;
         for (int i = 0; i < N; i += 1) {
             int operationNumber = StdRandom.uniform(0, 5);
             if (operationNumber == 0) {
@@ -315,8 +315,10 @@ public class ArrayDequeTest {
                 list.add(randVal);
                 L.addLast(randVal);
             } else if (operationNumber == 1) {
-                // size
-                int size = L.size();
+                // addFirst
+                int randVal = StdRandom.uniform(0, 100);
+                list.add(0, randVal);
+                L.addFirst(randVal);
             } else if (operationNumber == 2) {
                 // getLast
                 int size = L.size();
@@ -333,9 +335,6 @@ public class ArrayDequeTest {
                 if (L.size() > 0) {
                     ArrayDeque<Integer> test = L;
                     int firstList = list.remove(0);
-//                    if (L.get(L.getFirstIndex()+1) == null) {
-//                        System.out.println(firstList);
-//                    }
                     int removeVal = L.removeFirst();
                     assertEquals(firstList, removeVal);
                 }
@@ -348,7 +347,7 @@ public class ArrayDequeTest {
         ArrayDeque<Integer> L = new ArrayDeque<>();
         List<Integer> list = new ArrayList<>();
 
-        int N = 10000;
+        int N = 100000;
         for (int i = 0; i < N; i += 1) {
             int operationNumber = StdRandom.uniform(0, 2);
             if (operationNumber == 0) {
@@ -369,7 +368,7 @@ public class ArrayDequeTest {
 
     @Test
     public void testEquality() {
-        ArrayDeque<Integer> dequeA = new ArrayDeque<>();
+        Deque<Integer> dequeA = new ArrayDeque<>();
         assertEquals(dequeA, dequeA);
 
         ArrayDeque<Integer> dequeB = new ArrayDeque<>();
