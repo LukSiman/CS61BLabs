@@ -39,7 +39,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         resizeCheck();
 
         if
-        (nextLast == items.length){
+            (nextLast == items.length)
+        {
             nextLast = 0;
         }
 
