@@ -8,14 +8,13 @@ import java.io.IOException;
 import static capers.Utils.*;
 
 /** A repository for Capers 
- * @author TODO
+ * @author Lukas Simanavicius
  * The structure of a Capers Repository is as follows:
  *
  * .capers/ -- top level folder for all persistent data in your lab12 folder
  *    - dogs/ -- folder containing all of the persistent data for dogs
  *    - story -- file containing the current story
  *
- * TODO: change the above structure if you do something different.
  */
 public class CapersRepository {
     /** Current Working Directory. */
@@ -23,7 +22,6 @@ public class CapersRepository {
 
     /** Main metadata folder. */
     static final File CAPERS_FOLDER = Utils.join(CWD, ".capers");
-    // TODO Hint: look at the `join` function in Utils
 
     /**
      * Does required filesystem operations to allow for persistence.
@@ -35,7 +33,6 @@ public class CapersRepository {
      *    - story -- file containing the current story
      */
     public static void setupPersistence() throws IOException {
-        // TODO
         if(!CAPERS_FOLDER.exists()){
             // create the .capers folder
             CAPERS_FOLDER.mkdir();
@@ -60,10 +57,16 @@ public class CapersRepository {
      * @param text String of the text to be appended to the story
      */
     public static void writeStory(String text) {
-        // TODO
+        // getting the path to the story.txt file
         File storyFile = Utils.join(CAPERS_FOLDER, "story", "story.txt");
+
+        // grabbing current content in the file
         String currentStory = Utils.readContentsAsString(storyFile);
+
+        // appending the new text to the current content
         currentStory += text + "\n";
+
+        // writing the updated content to the file
         Utils.writeContents(storyFile, currentStory);
         System.out.print(readContentsAsString(storyFile));
     }
