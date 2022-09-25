@@ -42,7 +42,6 @@ public class Dog implements Serializable{
     public static Dog fromFile(String name) {
         File dogFile = Utils.join(DOG_FOLDER, name);
         return Utils.readObject(dogFile, Dog.class);
-//        return null;
     }
 
     /**
@@ -58,12 +57,6 @@ public class Dog implements Serializable{
      * Saves a dog to a file for future use.
      */
     public void saveDog() throws RuntimeException {
-        // Check if dog already exists
-        Dog dog = fromFile(this.name);
-        if(dog != null){
-            throw new RuntimeException("Dog already exists");
-        }
-
         // Write the dog object to its file
         File dogFile = Utils.join(DOG_FOLDER, this.name);
         Utils.writeObject(dogFile, this);
@@ -75,5 +68,4 @@ public class Dog implements Serializable{
             "Woof! My name is %s and I am a %s! I am %d years old! Woof!",
             name, breed, age);
     }
-
 }
