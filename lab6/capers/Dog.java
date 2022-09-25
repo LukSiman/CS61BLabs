@@ -3,6 +3,7 @@ package capers;
 import jdk.jshell.execution.Util;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import static capers.Utils.*;
 
@@ -56,9 +57,10 @@ public class Dog implements Serializable{
     /**
      * Saves a dog to a file for future use.
      */
-    public void saveDog() throws RuntimeException {
+    public void saveDog() throws IOException {
         // Write the dog object to its file
         File dogFile = Utils.join(DOG_FOLDER, this.name);
+        dogFile.createNewFile();
         Utils.writeObject(dogFile, this);
     }
 

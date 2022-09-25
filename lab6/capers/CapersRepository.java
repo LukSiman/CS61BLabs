@@ -76,7 +76,7 @@ public class CapersRepository {
      * three non-command arguments of args (name, breed, age).
      * Also prints out the dog's information using toString().
      */
-    public static void makeDog(String name, String breed, int age) {
+    public static void makeDog(String name, String breed, int age) throws IOException {
         Dog dog = new Dog(name, breed, age);
         dog.saveDog();
         System.out.println(dog);
@@ -88,7 +88,7 @@ public class CapersRepository {
      * Chooses dog to advance based on the first non-command argument of args.
      * @param name String name of the Dog whose birthday we're celebrating.
      */
-    public static void celebrateBirthday(String name) {
+    public static void celebrateBirthday(String name) throws IOException {
         Dog dog = Dog.fromFile(name);
         dog.haveBirthday();
         dog.saveDog();
