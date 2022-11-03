@@ -59,7 +59,7 @@ public class BSTMap<K extends Comparable, V> implements Map61B<K, V> {
     }
 
     private BSTNode getValue(BSTNode node, K key) {
-        if (node == null) {
+        if (node == null || node.key == null) {
             return null;
         }
         if (key.equals(node.key)) {
