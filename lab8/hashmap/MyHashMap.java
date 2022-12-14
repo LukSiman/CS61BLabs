@@ -2,6 +2,7 @@ package hashmap;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Set;
 
 /**
@@ -35,6 +36,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     private static double DEFAULT_LOAD = 0.75;
 
     private int size = 0;
+    private int bucketsSize = 0;
 
     // You should probably define some more!
 
@@ -57,8 +59,9 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * @param maxLoad     maximum load factor
      */
     public MyHashMap(int initialSize, double maxLoad) {
-        this.buckets = new Collection[initialSize];
-        this.size = initialSize;
+        this.buckets = createTable(initialSize);
+        this.bucketsSize = initialSize;
+        this.size = 0;
     }
 
     /**
@@ -87,7 +90,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * OWN BUCKET DATA STRUCTURES WITH THE NEW OPERATOR!
      */
     protected Collection<Node> createBucket() {
-        return null;
+        return new LinkedList<>();
     }
 
     /**
@@ -100,7 +103,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * @param tableSize the size of the table to create
      */
     private Collection<Node>[] createTable(int tableSize) {
-        return null;
+        return new Collection[tableSize];
     }
 
     // TODO: Implement the methods of the Map61B Interface below
@@ -108,7 +111,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public void clear() {
-        this.buckets = new Collection[DEFAULT_SIZE];
+        this.buckets = createTable(DEFAULT_SIZE);
         this.size = 0;
     }
 
@@ -129,6 +132,17 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public void put(K key, V value) {
+//        if(containsKey(key)){
+
+//        } else {
+        Node node = createNode(key, value);
+        int bucketIndex = Math.floorMod(node.hashCode(), this.bucketsSize);
+
+//        }
+
+
+        Collection<Node> bucket = createBucket();
+
         this.size++;
         throw new UnsupportedOperationException();
     }
