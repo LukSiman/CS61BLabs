@@ -60,6 +60,11 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     public MyHashMap(int initialSize, double maxLoad) {
         this.buckets = createTable(initialSize);
+        int index = 0;
+        for (Collection<Node> bucketIterator : this.buckets) {
+            this.buckets[index] = createBucket();
+            index++;
+        }
         this.bucketsSize = initialSize;
         this.size = 0;
     }
@@ -117,6 +122,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public boolean containsKey(K key) {
+
         throw new UnsupportedOperationException();
     }
 
@@ -136,14 +142,12 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
 //        } else {
         Node node = createNode(key, value);
-        int bucketIndex = Math.floorMod(node.hashCode(), this.bucketsSize);
+        int bucketIndex = Math.floorMod(node.key.hashCode(), this.bucketsSize);
 
+        buckets[bucketIndex].add(node);
+        this.size++;
 //        }
 
-
-        Collection<Node> bucket = createBucket();
-
-        this.size++;
         throw new UnsupportedOperationException();
     }
 
