@@ -117,6 +117,13 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     @Override
     public void clear() {
         this.buckets = createTable(DEFAULT_SIZE);
+
+        int index = 0;
+        for (Collection<Node> bucketIterator : this.buckets) {
+            this.buckets[index] = createBucket();
+            index++;
+        }
+
         this.size = 0;
     }
 
@@ -127,7 +134,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         Collection<Node> bucket = this.buckets[bucketIndex];
 
         for (Node node : bucket) {
-            if (node.key == key) {
+            if (node.key.equals(key)) {
                 return true;
             }
         }
@@ -137,8 +144,16 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public V get(K key) {
+        int bucketIndex = Math.floorMod(key.hashCode(), this.bucketsSize);
 
-        throw new UnsupportedOperationException();
+        Collection<Node> bucket = this.buckets[bucketIndex];
+
+        for (Node node : bucket) {
+            if (node.key.equals(key)) {
+                return node.value;
+            }
+        }
+        return null;
     }
 
     @Override
