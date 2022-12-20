@@ -163,21 +163,28 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public void put(K key, V value) {
+        Node node = createNode(key, value);
+        int bucketIndex = Math.floorMod(node.key.hashCode(), this.bucketsSize);
+
         if (containsKey(key)) {
+            Collection<Node> bucket = this.buckets[bucketIndex];
+
+            for (Node iterateNode : bucket) {
+                if (iterateNode.key.equals(key)) {
+                    iterateNode.value = node.value;
+                    return;
+                }
+            }
 
         } else {
-            Node node = createNode(key, value);
-            int bucketIndex = Math.floorMod(node.key.hashCode(), this.bucketsSize);
-
             buckets[bucketIndex].add(node);
             this.size++;
         }
-
-//        throw new UnsupportedOperationException();
     }
 
     @Override
     public Set<K> keySet() {
+
         throw new UnsupportedOperationException();
     }
 
