@@ -32,8 +32,10 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     private static int DEFAULT_SIZE = 16;
     private static double DEFAULT_LOAD = 0.75;
 
-    private int size = 0;
-    private int bucketsSize = 0;
+    private double loadFactor;
+
+    private int itemCount = 0;
+    private int bucketCount = 0;
 
     // You should probably define some more!
 
@@ -62,8 +64,9 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
             this.buckets[index] = createBucket();
             index++;
         }
-        this.bucketsSize = initialSize;
-        this.size = 0;
+        this.bucketCount = initialSize;
+        this.itemCount = 0;
+        this.loadFactor = maxLoad;
     }
 
     /**
@@ -121,12 +124,12 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
             index++;
         }
 
-        this.size = 0;
+        this.itemCount = 0;
     }
 
     @Override
     public boolean containsKey(K key) {
-        int bucketIndex = Math.floorMod(key.hashCode(), this.bucketsSize);
+        int bucketIndex = Math.floorMod(key.hashCode(), this.bucketCount);
 
         Collection<Node> bucket = this.buckets[bucketIndex];
 
@@ -141,7 +144,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public V get(K key) {
-        int bucketIndex = Math.floorMod(key.hashCode(), this.bucketsSize);
+        int bucketIndex = Math.floorMod(key.hashCode(), this.bucketCount);
 
         Collection<Node> bucket = this.buckets[bucketIndex];
 
@@ -155,13 +158,13 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public int size() {
-        return this.size;
+        return this.itemCount;
     }
 
     @Override
     public void put(K key, V value) {
         Node node = createNode(key, value);
-        int bucketIndex = Math.floorMod(node.key.hashCode(), this.bucketsSize);
+        int bucketIndex = Math.floorMod(node.key.hashCode(), this.bucketCount);
 
         if (containsKey(key)) {
             Collection<Node> bucket = this.buckets[bucketIndex];
@@ -174,19 +177,40 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
             }
 
         } else {
+            double loadCheck = this.itemCount / this.bucketCount;
+            int newSize = this.bucketCount * 2;
+
+            if (loadCheck > this.loadFactor) {
+                Collection<Node>[] newBuckets = createTable(newSize);
+
+                int index = 0;
+                for (Collection<Node> bucketIterator : newBuckets) {
+                    newBuckets[index] = createBucket();
+                    index++;
+                }
+
+                Iterator<K> itt = iterator();
+                while (itt.hasNext()) {
+                    K currKey = itt.next();
+                    V currValue = get(currKey);
+                    Node currNode = createNode(currKey, currValue);
+                    int newBucketIndex = Math.floorMod(currNode.key.hashCode(), newSize);
+                    newBuckets[newBucketIndex].add(currNode);
+                }
+
+                this.buckets = newBuckets;
+            }
             buckets[bucketIndex].add(node);
-            this.size++;
+            this.itemCount++;
         }
     }
 
     @Override
     public Set<K> keySet() {
-        Collection<Node>[] allBuckets = this.buckets;
         Set<K> keys = new HashSet<>();
 
-
-        for(Collection<Node> bucket : allBuckets){
-            for(Node node : bucket){
+        for (Collection<Node> bucket : this.buckets) {
+            for (Node node : bucket) {
                 keys.add(node.key);
             }
         }
@@ -206,6 +230,21 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+        Set<K> keys = keySet();
+        Iterator keyIterator = keys.iterator();
+
+        return keyIterator;
+//        return new Iterator<K>() {
+//            @Override
+//            public boolean hasNext() {
+//                return false;
+//            }
+//
+//            @Override
+//            public K next() {
+//                keys.
+//                return null;
+//            }
+//        };
     }
 }
