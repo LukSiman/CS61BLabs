@@ -1,8 +1,10 @@
 package gitlet;
 
-import org.checkerframework.checker.units.qual.C;
+//import org.checkerframework.checker.units.qual.C;
 
 import java.io.File;
+import java.io.IOException;
+
 import static gitlet.Utils.*;
 
 // TODO: any imports you need here
@@ -27,14 +29,25 @@ public class Repository {
     /** The .gitlet directory. */
     public static final File GITLET_DIR = join(CWD, ".gitlet");
 
-    public static void init(){
+    //initialize repository
+    public static void init() throws IOException {
+
+        //check if already initialized
         if(GITLET_DIR.exists()){
             Utils.message("A Gitlet version-control system already exists in the current directory.");
             System.exit(0);
         }
 
+        //initialize
         Commit commit = new Commit(null, "initial commit");
         GITLET_DIR.mkdir();
+
+        //create commit file
+        File commitFile = Utils.join(GITLET_DIR, "commits.txt");
+        commitFile.createNewFile();
+
+        //add initial metadata
+        String currentCommit = Utils.readContentsAsString(commitFile);
 
     }
 
