@@ -1,5 +1,7 @@
 package gitlet;
 
+import java.io.File;
+
 /**
  * Driver class for Gitlet, a subset of the Git version-control system.
  *
@@ -17,16 +19,19 @@ public class Main {
             System.exit(0);
         }
 
+        Repository repository = new Repository();
+
         String firstArg = args[0];
         switch (firstArg) {
             case "init":
-                // TODO: handle the `init` command
-                Commit initial = new Commit(null, "initial commit");
+                Repository.init();
                 break;
             case "add":
                 // TODO: handle the `add [filename]` command
                 break;
-            // TODO: FILL THE REST IN
+            default:
+                Utils.message("No command with that name exists.");
+                System.exit(0);
         }
     }
 }

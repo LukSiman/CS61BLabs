@@ -30,10 +30,17 @@ public class Commit {
     //Parent of the commit
     private Commit parent;
 
+    //UID of the commit
+    private String UID;
+
+    //Branch name
+    private String branchName;
+
     public Commit(Commit parent, String message) {
         this.parent = parent;
         if(this.parent == null){
             this.timestamp = "00:00:00 UTC, Thursday, 1 January 1970";
+//            this.UID = Utils.sha1(this);
         }
         this.message = message;
     }
@@ -48,5 +55,13 @@ public class Commit {
 
     public Commit getParent() {
         return parent;
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public String getBranchName() {
+        return branchName;
     }
 }

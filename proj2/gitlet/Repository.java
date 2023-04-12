@@ -1,5 +1,7 @@
 package gitlet;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.io.File;
 import static gitlet.Utils.*;
 
@@ -25,5 +27,16 @@ public class Repository {
     /** The .gitlet directory. */
     public static final File GITLET_DIR = join(CWD, ".gitlet");
 
-    /* TODO: fill in the rest of this class. */
+    public static void init(){
+        if(GITLET_DIR.exists()){
+            Utils.message("A Gitlet version-control system already exists in the current directory.");
+            System.exit(0);
+        }
+
+        Commit commit = new Commit(null, "initial commit");
+        GITLET_DIR.mkdir();
+
+    }
+
+    //TODO: branches?
 }
