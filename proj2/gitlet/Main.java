@@ -30,6 +30,9 @@ public class Main {
             case "add":
                 // TODO: handle the `add [filename]` command
                 break;
+            case "log":
+                repository.log();
+                break;
             default:
                 Utils.message("No command with that name exists.");
                 System.exit(0);
