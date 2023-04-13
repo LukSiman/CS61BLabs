@@ -28,7 +28,7 @@ public class Main {
                 Repository.init();
                 break;
             case "add":
-                // TODO: handle the `add [filename]` command
+                repository.add(args[1]);
                 break;
             case "log":
                 repository.log();

@@ -4,6 +4,7 @@ package gitlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import static gitlet.Utils.*;
@@ -41,32 +42,35 @@ public class Repository {
         if (GITLET_DIR.exists()) {
             Utils.message("A Gitlet version-control system already exists in the current directory.");
             System.exit(0);
+        } else {
+            GITLET_DIR.mkdir();
+            File commitDirectory = Utils.join(GITLET_DIR, "commits");
+            commitDirectory.mkdir();
         }
 
         //initialize
-        Commit commit = new Commit(null, "initial commit");
-        GITLET_DIR.mkdir();
+        Commit initialCommit = new Commit(null, "initial initialCommit", new Date(0));
 
-        //create commit file
-        File initialCommitFile = Utils.join(GITLET_DIR, "initialCommit");
+        //create initialCommit file
+        File initialCommitFile = Utils.join(GITLET_DIR, "commits", initialCommit.getSha());
 
         //write the object to file
-        Utils.writeObject(initialCommitFile, commit);
+        Utils.writeObject(initialCommitFile, initialCommit);
+    }
 
-        //get UID by reading the content
-        String uid = Utils.sha1((Object) Utils.readContents(initialCommitFile));
-        commit.setUID(uid);
+    //adds the file to the staging area
+    public static void add(String fileToAdd){
 
-        //write the object again to the file
-        Utils.writeObject(initialCommitFile, commit);
     }
 
     //displays a log of metadata
     public static void log() {
-        List<String> list = Utils.plainFilenamesIn(GITLET_DIR);
+        String fullPath = GITLET_DIR + "/commits";
+        List<String> list = Utils.plainFilenamesIn(fullPath);
         assert list != null;
         for (String file : list) {
-            File commitFile = Utils.join(GITLET_DIR, file);
+            System.out.println();
+            File commitFile = Utils.join(fullPath, file);
 //            Commit commit = Utils.readObject(commitFile, Commit.class);
             System.out.println(Utils.readContentsAsString(commitFile));
         }

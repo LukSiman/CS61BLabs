@@ -5,6 +5,8 @@ package gitlet;
 import java.io.Serializable;
 import java.util.Date; // TODO: You'll likely use this in this class
 
+import static gitlet.Utils.serialize;
+
 /**
  * Represents a gitlet commit object.
  *  TODO: It's a good idea to give a description here of what else this Class
@@ -34,11 +36,9 @@ public class Commit implements Serializable {
     //UID of the commit
     private String UID;
 
-    public Commit(Commit parent, String message) {
+    public Commit(Commit parent, String message, Date date) {
         this.parent = parent;
-        if (this.parent == null) {
-            this.timestamp = new Date(0);
-        }
+        this.timestamp = date;
         this.message = message;
     }
 
@@ -58,7 +58,21 @@ public class Commit implements Serializable {
         return UID;
     }
 
-    public void setUID(String uid){
-        this.UID = uid;
+    public String getSha(){
+        String serialized = serializeCommit();
+        return Utils.sha1(serialized);
+    }
+
+    private String serializeCommit(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.message);
+        stringBuilder.append(this.timestamp);
+        if (this.parent == null){
+            stringBuilder.append("null");
+        } else {
+            stringBuilder.append(this.parent.getSha());
+        }
+
+        return stringBuilder.toString();
     }
 }
