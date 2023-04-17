@@ -33,9 +33,6 @@ public class Commit implements Serializable {
     //Parent of the commit
     private Commit parent;
 
-    //UID of the commit
-    private String UID;
-
     public Commit(Commit parent, String message, Date date) {
         this.parent = parent;
         this.timestamp = date;
@@ -54,13 +51,9 @@ public class Commit implements Serializable {
         return parent;
     }
 
-    public String getUID() {
-        return UID;
-    }
-
     public String getSha(){
         String serialized = serializeCommit();
-        return Utils.sha1(serialized);
+        return String UID = Utils.sha1(serialized);
     }
 
     private String serializeCommit(){

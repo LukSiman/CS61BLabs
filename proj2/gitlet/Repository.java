@@ -49,7 +49,7 @@ public class Repository {
         }
 
         //initialize
-        Commit initialCommit = new Commit(null, "initial initialCommit", new Date(0));
+        Commit initialCommit = new Commit(null, "initial commit", new Date(0));
 
         //create initialCommit file
         File initialCommitFile = Utils.join(GITLET_DIR, "commits", initialCommit.getSha());
@@ -69,10 +69,13 @@ public class Repository {
         List<String> list = Utils.plainFilenamesIn(fullPath);
         assert list != null;
         for (String file : list) {
-            System.out.println();
             File commitFile = Utils.join(fullPath, file);
-//            Commit commit = Utils.readObject(commitFile, Commit.class);
-            System.out.println(Utils.readContentsAsString(commitFile));
+            Commit commit = Utils.readObject(commitFile, Commit.class);
+
+            System.out.println("===");
+            System.out.println("commit " + commit.getSha());
+            System.out.println("Date: " + commit.getTimestamp());
+            System.out.println(commit.getMessage());
         }
     }
 }
