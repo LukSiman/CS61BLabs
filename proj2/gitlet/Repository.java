@@ -6,26 +6,25 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeMap;
 
 import static gitlet.Utils.*;
 
-// TODO: any imports you need here
-
 /**
  * Represents a gitlet repository.
- *  TODO: It's a good idea to give a description here of what else this Class
- *  does at a high level.
- *
- * @author TODO
+ * does at a high level.
  */
 public class Repository {
     /**
-     * TODO: add instance variables here.
-     *
      * List all instance variables of the Repository class here with a useful
      * comment above them describing what that variable represents and how that
      * variable is used. We've provided two examples for you.
      */
+
+
+    //Treemap for branches
+    private static TreeMap<String, String> branches = new TreeMap<>();
+    private static String currentBranch = "";
 
     /**
      * The current working directory.
@@ -56,10 +55,43 @@ public class Repository {
 
         //write the object to file
         Utils.writeObject(initialCommitFile, initialCommit);
+
+        //create and set initial branch
+        String defaultBranchName = "master";
+        createBranch(defaultBranchName, initialCommit.getSha());
+        setBranch(defaultBranchName);
+    }
+
+    private static void createBranch(String name, String sha) {
+        branches.put(name, sha);
+        saveBranches();
+    }
+
+    private static void saveBranches() {
+        // Serialize the branches object
+        byte[] branchesBytes = Utils.serialize(branches);
+
+        // Save the serialized branches object to a file
+        File branchesFile = Utils.join(GITLET_DIR, "branches");
+        Utils.writeObject(branchesFile, branchesBytes);
+    }
+
+    private static void setBranch(String name) {
+        currentBranch = name;
+        saveCurrentBranch();
+    }
+
+    private static void saveCurrentBranch() {
+        // Serialize the current branch object
+        byte[] currentBranchBytes = Utils.serialize(currentBranch);
+
+        // Save the serialized branches object to a file
+        File currentBranchFile = Utils.join(GITLET_DIR, "currentBranch");
+        Utils.writeObject(currentBranchFile, currentBranchBytes);
     }
 
     //adds the file to the staging area
-    public static void add(String fileToAdd){
+    public static void add(String fileToAdd) {
 
     }
 

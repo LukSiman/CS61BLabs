@@ -53,7 +53,7 @@ public class Commit implements Serializable {
 
     public String getSha(){
         String serialized = serializeCommit();
-        return String UID = Utils.sha1(serialized);
+        return Utils.sha1(serialized);
     }
 
     private String serializeCommit(){
