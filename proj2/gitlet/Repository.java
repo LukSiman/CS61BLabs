@@ -2,6 +2,8 @@ package gitlet;
 
 //import org.checkerframework.checker.units.qual.C;
 
+import jdk.jshell.execution.Util;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -24,6 +26,8 @@ public class Repository {
 
     //Treemap for branches
     private static TreeMap<String, String> branches = new TreeMap<>();
+
+    //name of the current branch
     private static String currentBranch = "";
 
     /**
@@ -92,11 +96,48 @@ public class Repository {
 
     //adds the file to the staging area
     public static void add(String fileToAdd) {
+        //check if gitlet is initialized
+        checkIfInitialized();
 
+        File file = new File(fileToAdd);
+
+        //check if file exists
+        if (!file.exists()) {
+            Utils.message("File does not exist.");
+            System.exit(0);
+        }
+
+        //check if staging directory has been created
+        File stagingDirectory = Utils.join(GITLET_DIR, "staging");
+        if (!stagingDirectory.exists()) {
+            stagingDirectory.mkdir();
+        }
+
+        //calculate the hash of the file
+        String fileHash = calculateHash(file);
+
+        //check if file is different
+        String lastCommitFileHash = getLastCommitFileHash(fileHash);
+    }
+
+    //gets the last commit hash of the file
+    private static String getLastCommitFileHash(String fileHash) {
+        //TODO: FINISH
+        return "";
+    }
+
+
+    //calculates the hash of the file
+    private static String calculateHash(File file) {
+        byte[] fileBytes = Utils.serialize(file);
+        return Utils.sha1((Object) fileBytes);
     }
 
     //displays a log of metadata
     public static void log() {
+        //check if gitlet is initialized
+        checkIfInitialized();
+
         String fullPath = GITLET_DIR + "/commits";
         List<String> list = Utils.plainFilenamesIn(fullPath);
         assert list != null;
@@ -108,6 +149,13 @@ public class Repository {
             System.out.println("commit " + commit.getSha());
             System.out.println("Date: " + commit.getTimestamp());
             System.out.println(commit.getMessage());
+        }
+    }
+
+    private static void checkIfInitialized() {
+        if (!GITLET_DIR.exists()) {
+            Utils.message("Not in an initialized Gitlet directory.");
+            System.exit(0);
         }
     }
 }
